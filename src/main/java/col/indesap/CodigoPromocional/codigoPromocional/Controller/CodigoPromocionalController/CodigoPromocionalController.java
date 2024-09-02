@@ -9,9 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
+import java.util.*;
 
 @RestController
 @RequestMapping("api/v1/codigopromocional")
@@ -64,7 +63,7 @@ public class CodigoPromocionalController {
     @PostMapping("/validarcodigo")
     public ResponseEntity<String> validarCodigo(@RequestBody String codigo) {
 
-       try {
+        try {
             String descripcion = codigoPromocionalService.validarCodigo(codigo);
             return ResponseEntity.ok(descripcion);
         } catch (ResponseStatusException e) {
