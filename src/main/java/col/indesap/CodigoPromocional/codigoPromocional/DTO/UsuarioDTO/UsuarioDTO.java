@@ -1,6 +1,9 @@
 package col.indesap.CodigoPromocional.codigoPromocional.DTO.UsuarioDTO;
 
+import col.indesap.CodigoPromocional.codigoPromocional.DTO.CodigoPromocionalDTO.CodigoPromocionalDTO;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name= "usuarios")
@@ -11,15 +14,19 @@ public class UsuarioDTO {
     @Column(name= "id_usuario")
     private Integer id_usuario;
 
-    @Column(name= "correo_electronico")
-    private String correo_electronico;
+    @Column(name= "email",unique = true)
+    private String email;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<CodigoPromocionalDTO> codigosPromocionales;
 
     public UsuarioDTO() {
     }
 
-    public UsuarioDTO(Integer id_usuario, String correo_electronico) {
+    public UsuarioDTO(Integer id_usuario, String email, List<CodigoPromocionalDTO> codigosPromocionales) {
         this.id_usuario = id_usuario;
-        this.correo_electronico = correo_electronico;
+        this.email = email;
+        this.codigosPromocionales = codigosPromocionales;
     }
 
     public Integer getId_usuario() {
@@ -30,11 +37,19 @@ public class UsuarioDTO {
         this.id_usuario = id_usuario;
     }
 
-    public String getCorreo_electronico() {
-        return correo_electronico;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreo_electronico(String correo_electronico) {
-        this.correo_electronico = correo_electronico;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<CodigoPromocionalDTO> getCodigosPromocionales() {
+        return codigosPromocionales;
+    }
+
+    public void setCodigosPromocionales(List<CodigoPromocionalDTO> codigosPromocionales) {
+        this.codigosPromocionales = codigosPromocionales;
     }
 }
