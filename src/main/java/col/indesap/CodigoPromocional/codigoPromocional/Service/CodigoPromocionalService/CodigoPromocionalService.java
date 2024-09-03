@@ -80,7 +80,7 @@ public class CodigoPromocionalService {
 
     public String validarCodigo(String codigo){
 
-        codigo = codigo.trim().replace("\"", "");  // Elimina espacios al inicio o final
+        //codigo = codigo.trim().replace("\"", "");  // Elimina espacios al inicio o final
         System.out.println("Código recibido: " + codigo);
 
         CodigoPromocionalDTO codigoPromocional = codigoPromocionalRepository.findByCodigo(codigo)

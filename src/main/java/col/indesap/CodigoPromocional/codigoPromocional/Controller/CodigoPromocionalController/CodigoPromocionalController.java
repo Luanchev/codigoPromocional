@@ -61,15 +61,17 @@ public class CodigoPromocionalController {
     }
 
     @PostMapping("/validarcodigo")
-    public ResponseEntity<String> validarCodigo(@RequestBody String codigo) {
-
+    public ResponseEntity<Map<String, String>> validarCodigo(@RequestBody Map<String, String> request) {
+        String codigo = request.get("codigo");
         try {
             String descripcion = codigoPromocionalService.validarCodigo(codigo);
-            return ResponseEntity.ok(descripcion);
+            Map<String, String> response = new HashMap<>();
+            response.put("descripcion", descripcion);
+            return ResponseEntity.ok(response);
         } catch (ResponseStatusException e) {
-            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+            return ResponseEntity.status(e.getStatusCode()).body(Collections.singletonMap("error", e.getReason()));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ocurrió un error inesperado");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", "Ocurrió un error inesperado"));
         }
     }
 
